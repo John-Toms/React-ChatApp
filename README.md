@@ -1,37 +1,18 @@
-## Welcome to GitHub Pages
+This is Chat application using ReactJS.
+I used react as front-end and express as server side.
 
-You can use the [editor on GitHub](https://github.com/John-Toms/React-ChatApp/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+How to run this application.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+1. Type like this on your Terminal.
 
-### Markdown
+cd ReactChat
+npm install
+npm install mongodb & body-parse
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+2. Install mongodb on your computer and run monodb server.
+ - on Windows user this guide
+   https://www.guru99.com/installation-configuration-mongodb.html#1
+  
+3 Please run
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/John-Toms/React-ChatApp/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+npm install react-route@3.2.0
