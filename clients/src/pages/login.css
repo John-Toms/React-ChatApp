@@ -1,0 +1,63 @@
+.Login {
+    width: 30%;
+    margin: 0px auto;
+  }
+.Regestration{
+    width: 30%;
+    margin: 0px auto;
+}
+label{
+  margin-top: 20px;
+  display: block;
+}
+.username{
+  margin-left: -3px;
+  float: none;
+  width: 135px;
+}
+.check{
+  margin-left: 10px;
+  float: none;
+  width: 50px;
+}
+.submitbtn{
+  margin-top: 30px;
+  text-align: center;
+}
+form>h2{
+  text-align: center;
+}
+.userArea{
+  width: 200px;
+  float: right;
+}
+label>input{
+  float: right;
+  width: 200px;
+}
+#login{
+  float:left;
+}
+#registration{
+  float:right;
+}
+.gender{
+  margin-left: 40px;
+}
+.progressarea{
+  margin-top: 40px;
+}
+.lower{
+  strokeColor:rgb(197, 21, 21) !important;
+}
+.middle{
+  strokeColor:rgb(218, 170, 16) !important;
+}
+.strong{
+  strokeColor:green !important;
+}
+  @keyframes App-logo-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
