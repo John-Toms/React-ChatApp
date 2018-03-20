@@ -24,7 +24,7 @@ class Login extends Component {
         this.sendEmail = this.sendEmail.bind(this);
     }
 
-    alarm(msg){console.log(msg)
+    alarm(msg){
         swal({
             title: msg,
             animation: false,

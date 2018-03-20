@@ -72,10 +72,8 @@ app.post('/regester', (req, res) => {
     var query = { useremail: req.body.useremail };
     db.collection('userlist').find(query).toArray().then(function (response) {
       if (response.length == 0) {
-        console.log(response)
         delete req.body._id;
         db.collection('userlist').insertOne(req.body);
-        console.log(req.body);
         res.send('Successful' );
       } else {
         res.send('Exist');
@@ -89,7 +87,6 @@ app.post('/usercheck', (req, res) => {
     var query = { useremail: req.body.useremail };
     db.collection('userlist').find(query).toArray().then(function (response) {
       if (response.length == 0) {
-        console.log(response)
         res.send('New' );
       } else {
         res.send('Exist');
@@ -99,15 +96,15 @@ app.post('/usercheck', (req, res) => {
 });
 
 app.post('/re-password', (req, res) => {
+  var email = req.body.useremail;
   dbConn.then(function (db) {
-    var query = { useremail: req.body.useremail };
+    var query = { useremail: email };
     db.collection('userlist').find(query).toArray().then(function (response) {
       if (response.length == 0) {
         res.status(202);
         res.send('Invalid UserEmail!' );
       } else {
           var mailOpts, smtpTrans;
-          // Setup Nodemailer transport, I chose gmail. Create an application-specific password to avoid problems.
           smtpTrans = nodemailer.createTransport({
               service: 'Gmail',
               auth: {
@@ -117,25 +114,47 @@ app.post('/re-password', (req, res) => {
           });
           
           readHTMLFile(__dirname + '/public/email.html', function(err, html) {
+
               var template = handlebars.compile(html);
               var replacements = {
-                  userlink: "http://localhost:3000/login"
+                  userlink: "http://localhost:3000/pswupdate/"+Buffer.from(email).toString('base64')
               };
               var htmlToSend = template(replacements);
               var mailOptions = {
                   from: 'toms199363@gmail.com',
-                  to : 'toms63@yahoo.com',
+                  to : email,
                   subject : 'User verification link',
                   html : htmlToSend
               };
               smtpTrans.sendMail(mailOptions, function (error, response) {
                   if (error) {
-                      console.log(error);
-                      callback(error);
+                      res.status(203)
+                      res.send("Server Error, Please retry later!");
+                  }
+                  if(response){
+                      res.status(201)
+                      res.send("Please check your mailbox!")
                   }
               });
           });
         }
+    });
+  });
+});
+
+app.post('/pswupdate', (req, res) => {
+ 
+  var email = Buffer.from(req.body.useremail, 'base64').toString('ascii');
+
+  dbConn.then(function (db) {
+    var query = { useremail: email };
+    var data = {$set: {userpassword:req.body.userpassword}};
+    db.collection('userlist').update(query,data).then(function (response) {
+      if (response.length == 0) {
+        res.send('Error' );
+      } else {
+        res.send('Successful');
+      }
     });
   });
 });
