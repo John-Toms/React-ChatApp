@@ -4,13 +4,14 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
-    "rc-progress": "^2.2.5",
+    "md5": "^2.2.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-progressbar": "^15.4.1",
     "react-router": "^3.2.0",
     "react-scripts": "1.1.1",
-    "react-sweet-progress": "^1.1.0"
+    "react-sweet-progress": "^1.1.0",
+    "sweetalert2": "^7.16.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -18,5 +19,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "http://localhost:3001",
+  "devDependencies": {}
 }
