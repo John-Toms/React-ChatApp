@@ -10,7 +10,7 @@ import './css/style.css';
 import './css/bootstrap.min.css';
 import './font-awesome/css/font-awesome.css';
 import './css/animate.css';
-
+import appConfig from './config/config.js'
 
 class Regestration extends Component {
     
@@ -136,7 +136,7 @@ class Regestration extends Component {
             this.alarm("Input UserEmail!");
         }else{
             axios.post('/usercheck', {
-                username: self.state.useremail,
+                useremail: self.state.useremail,
             })
             .then(function (response) {
                 if (response.data === 'New') {
