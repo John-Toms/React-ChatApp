@@ -143,3 +143,29 @@ label>input{
   margin-bottom: 28px;
   margin-top: 28px;
 }
+.loginbtn{
+  background-color: #5cb85c00 !important;
+  border-color : #a1a5a13d !important;
+  margin-left: 22px;
+}
+.loginbtn:hover{
+  background-color: #5cb85c !important;
+  border-color: #4cae4c !important;
+}
+.loginbtnArea{
+  position: absolute;
+  float: right;
+  right: 54px;
+  top: 28px;
+}
+.chatroom{
+  margin-left:0px !important;
+  margin-right:0px !important;
+}
+.chat-users{
+  height: 550px !important;
+  margin-left: -8px !important;
+}
+.chat-discussion{
+  height: 550px !important;
+}

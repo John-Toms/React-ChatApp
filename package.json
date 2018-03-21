@@ -17,6 +17,7 @@
     "nodemailer": "^4.6.3",
     "nodemailer-smtp-transport": "^2.7.4",
     "pug": "2.0.0-beta11",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "socket.io": "^2.0.4"
   }
 }
