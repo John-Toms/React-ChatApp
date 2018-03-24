@@ -4,14 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var path = require('path');
 var mongodb = require('mongodb');
 var bodyParser = require('body-parser');
-var nodemailer = require('nodemailer');
-var smtpTransport = require('nodemailer-smtp-transport');
-var handlebars = require('handlebars');
-var fs = require('fs');
-var socket = require('socket.io');
+// var socket = require('socket.io');
 const http = require("http");
 
 const appConfig = require('./config/config');
@@ -35,7 +30,8 @@ const start = async () => {
 
       server.listen(port, () => console.log(`Listening on port ${port}`));
 
-      require("./routes/users")(app,db);
+      require("./routes/users")(app,db,appConfig,__dirname);
+      require("./routes/chat")(app,db,server);
 
       module.exports = app;
 

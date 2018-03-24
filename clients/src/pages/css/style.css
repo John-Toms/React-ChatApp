@@ -4169,7 +4169,7 @@ dd.project-people {
   height: 90px !important;
 }
 .chat-avatar {
-  white: 36px;
+  width: 36px;
   height: 36px;
   float: left;
   margin-right: 10px;
@@ -4178,11 +4178,18 @@ dd.project-people {
   padding: 10px;
 }
 .chat-user {
+  height: 50px;
   padding: 8px 10px;
-  border-bottom: 1px solid #e7eaec;
+  border-bottom: 1px solid #e0e0e0;
+}
+.chat-user img:hover{
+  cursor: pointer;
 }
 .chat-user a {
   color: inherit;
+}
+.chat-user img {
+  border-radius: 50%;
 }
 /*------------------------*/
 .chat-view .ibox-content {

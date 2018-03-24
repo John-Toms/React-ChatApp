@@ -9,7 +9,6 @@ import './css/bootstrap.min.css';
 import './font-awesome/css/font-awesome.css';
 import './css/animate.css';
 
-
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -56,12 +55,13 @@ class Login extends Component {
                 userpassword: md5(self.state.userpassword)
             })
             .then(function (response) {
-                if(response.data === "InvalidUserEmail"){
+                if(response.data.msg === "InvalidUserEmail"){
                     self.alarm('Unregistration UserEmail!');
-                }else if(response.data==='WrongPassword'){
+                }else if(response.data.msg==='WrongPassword'){
                     self.alarm('Invalid UserPassword!');
-                }else if(response.data==="Successful"){
-                    browserHistory.push('/');
+                }else if(response.data.msg==="Successful"){
+                    const userStr = btoa(JSON.stringify([{email:response.data.data.useremail,status:"success"}]));
+                    browserHistory.push('/chat/'+userStr);
                 }
             })
             .catch(function (error) {
@@ -98,11 +98,11 @@ class Login extends Component {
           })
           .then((result) => { 
             if(self.state.stateMsg==="Please check your mailbox!"){
-                var state_flag = "success";
+                var state_flag = "success"; 
             }else{
                 state_flag ="error";
             }
-            if (result.value) {
+            if (result) {
               swal({
                 type: state_flag,
                 title: self.state.stateMsg 

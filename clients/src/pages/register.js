@@ -10,7 +10,6 @@ import './css/style.css';
 import './css/bootstrap.min.css';
 import './font-awesome/css/font-awesome.css';
 import './css/animate.css';
-import appConfig from './config/config.js'
 
 class Regestration extends Component {
     

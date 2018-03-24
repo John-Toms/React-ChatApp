@@ -163,9 +163,86 @@ label>input{
   margin-right:0px !important;
 }
 .chat-users{
-  height: 550px !important;
+  height: 604px !important;
   margin-left: -8px !important;
+  border: solid 1px darkgray;
 }
 .chat-discussion{
-  height: 550px !important;
+  height: 570px !important;
+  /* margin-top: 16px; */
+  background-image: url('../img/msg.jpg') !important;
+  background-size: cover !important;
+  opacity: 0.7;
+  z-index: -1;  
+}
+.btn-primary{
+  outline: none;
+}
+.chat-users-area{
+  position: unset !important;
+  padding-right: 0px !important;
+  background-color: white;
+}
+.message-text{
+  width: 90% !important;
+  float: left;
+}
+.send-btn{
+  width: 8% !important;
+  float: right;
+}
+.chatroom{
+  margin-top:10px;
+}
+.text-input{
+  padding-bottom: 17px;
+}
+.users-list{
+  border: solid 1px #d8d6d6;
+}
+.myavatar{
+  width: 50px;
+  height: 50px;
+  float: right;
+}
+.chat-control{
+  border-style: unset !important;
+}
+.ibox-title h5 {
+  margin: 0 0 0px !important;
+}
+.userstate{
+  margin-top: 10px;
+}
+.add-user-find{
+  padding: 0px 20px 10px 0px;
+}
+.add-user-find>input{
+  width:100%;
+  outline: none;
+}
+.hidden { display:none; }
+.clientavatar{
+  width: 40px;
+  height: 40px;
+  margin: 3px 0px 5px 20px;
+}
+.clientname{
+  margin-left: 14px;
+  position: absolute;
+  font-size: 16px;
+}
+.userstateIcon{
+  width: 13px;
+  height: 13px;
+  background-color: #00ff39;
+  border-radius: 50%;
+  position: absolute;
+  margin-top: 29px;
+  margin-left: -14px;
+}
+.seletedUser{
+  background-color: gainsboro;
+  background-color: gainsboro;
+  font-weight: 900;
 }
