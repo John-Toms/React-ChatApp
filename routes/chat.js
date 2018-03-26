@@ -1,10 +1,12 @@
 module.exports = (app,db,server) =>{
     
     const UserModel = require('../models/user');
+    const ChatModel = require('../models/chat');
     const { ObjectId } = require('mongodb');
     const socket = require('socket.io');
-
+    const moment = require('moment');
     var userModel = new UserModel(db, ObjectId);
+    var chatModel = new ChatModel(db, ObjectId);
 
     const io = socket(server);
     const allClients = [];
@@ -15,6 +17,7 @@ module.exports = (app,db,server) =>{
 
         socket.on('SEND_MESSAGE', function(data){ console.log(data)
             io.emit('RECEIVE_MESSAGE', data);
+            chatModel.saveMessage(data);
         })
         socket.on('disconnect', function() {
             console.log('Got disconnect!');
@@ -55,5 +58,14 @@ module.exports = (app,db,server) =>{
                 }
             })
         })
+    })
+
+    app.post('/getMessages',(req,res)=>{
+        console.log(req.body)
+        const current=moment().unix();
+        const beforeSevenDays = moment().subtract(7, 'day').unix();
+        chatModel.getMessages(req.body.sender,req.body.receiver,beforeSevenDays,current).then(data=>{console.log(data)
+            res.send({status:"success",data:data});
+        });
     })
 }

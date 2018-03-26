@@ -15,7 +15,7 @@ class UserModel{
         };
 
         this.getUser = async () => {
-            return prepare((await this.Users.find({},{_id:1,username:1,sex:1}).toArray()));
+            return prepare((await this.Users.find({},{_id:1,username:1,useremail:1,sex:1}).toArray()));
         };
 
         this.getUserContact = async (contacts) => {
@@ -24,7 +24,7 @@ class UserModel{
             for(var i=0; i<contactArray.length; i++){
                 value.push(ObjectId(contactArray[i]));
             }
-            return prepare((await this.Users.find({"_id": {"$in": value}},{_id:1,username:1,sex:1}).toArray()));
+            return prepare((await this.Users.find({"_id": {"$in": value}},{_id:1,username:1,useremail:1,sex:1}).toArray()));
         };
 
         this.getUserlist = async (fields, value) => {

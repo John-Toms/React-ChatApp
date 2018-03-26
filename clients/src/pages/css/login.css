@@ -186,6 +186,7 @@ label>input{
 .message-text{
   width: 90% !important;
   float: left;
+  margin-top: 18px;
 }
 .send-btn{
   width: 8% !important;
@@ -201,9 +202,16 @@ label>input{
   border: solid 1px #d8d6d6;
 }
 .myavatar{
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 29px;
+}
+.myname{
   float: right;
+  margin-right: 57px;
+  font-size: 15px;
+  font-weight: 900;
 }
 .chat-control{
   border-style: unset !important;
@@ -245,4 +253,9 @@ label>input{
   background-color: gainsboro;
   background-color: gainsboro;
   font-weight: 900;
+}
+.input-message{
+  /* width:100%; */
+  max-height: 50px;
+  outline: none;
 }
