@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import axios from 'axios';
 import swal from 'sweetalert2';
 import md5 from 'md5';
+
 import './css/login.css';
 import './css/style.css';
 import './css/bootstrap.min.css';
@@ -17,10 +18,12 @@ class Login extends Component {
             userpassword: '',
             confirmpassword: '',
             stateMsg:'',
+            rememberStatus:false,
         };
         this.onhandleChange = this.onhandleChange.bind(this);
         this.onhandleSubmit = this.onhandleSubmit.bind(this);
         this.sendEmail = this.sendEmail.bind(this);
+        this.rememeberAction = this.rememeberAction.bind(this);
     }
 
     alarm(msg){
@@ -45,6 +48,10 @@ class Login extends Component {
                 self.alarm("Please input UserEmail!");
                 return;
             }
+            if(! /@/.test(this.state.useremail)){
+                self.alarm("It is not correct email type!");
+                return;
+            }
             if(self.state.userpassword===""){
                 self.alarm("Please input UserPassword!");
                 return;
@@ -60,8 +67,16 @@ class Login extends Component {
                 }else if(response.data.msg==='WrongPassword'){
                     self.alarm('Invalid UserPassword!');
                 }else if(response.data.msg==="Successful"){
-                    const userStr = btoa(JSON.stringify([{email:response.data.data.useremail,status:"success"}]));
-                    browserHistory.push('/chat/'+userStr);
+                    if(self.state.rememberStatus){
+                        localStorage.setItem('slack', JSON.stringify(response.data.data));
+                        const userStr = btoa(JSON.stringify([{email:response.data.data.useremail,status:"success"}]));
+                        browserHistory.push('/chat/'+userStr);
+                    }else{
+                        localStorage.setItem('slack', JSON.stringify(response.data.data));
+                        const userStr = btoa(JSON.stringify([{email:response.data.data.useremail,status:"success"}]));
+                        browserHistory.push('/chat/'+userStr);                        
+                    }
+                    // localStorage.setItem('slack', response.data.data)
                 }
             })
             .catch(function (error) {
@@ -111,8 +126,40 @@ class Login extends Component {
           })
     }
 
+    rememeberAction(value){
+        this.setState({rememberStatus:value});
+        console.log(value)
+    }
+    componentDidMount(){
+        
+        const usersSession = localStorage.getItem("slack");
+        var temp2 = JSON.parse(usersSession)
+        if (temp2) {
+            console.log(temp2.userpassword)
+            var self = this;
+            axios.post('/login', {
+                useremail: temp2.useremail,
+                userpassword: temp2.userpassword
+            })
+            .then(function (response) {
+                if(response.data.msg === "InvalidUserEmail"){
+                    self.alarm('Unregistration UserEmail!');
+                }else if(response.data.msg==='WrongPassword'){
+                    self.alarm('Invalid UserPassword!');
+                }else if(response.data.msg==="Successful"){    
+                    const userStr = btoa(JSON.stringify([{email:response.data.data.useremail,status:"success"}]));
+                    browserHistory.push('/chat/'+userStr);
+                }
+            })
+            .catch(function (error) {
+            });
+        }
+        
+    }
     render() {
+
         return (
+
             <div className="middle-box text-center loginscreen  animated fadeInDown">
                 <div>
                     <div>
@@ -123,10 +170,14 @@ class Login extends Component {
                     </div>
                     <form className="m-t" >
                         <div className="form-group">
-                            <input type="email" className="form-control" placeholder="UserEmail" name="useremail" value={this.state.useremail} onChange={this.onhandleChange} required="" />
+                            <input type="email" className="form-control" placeholder="UserEmail" name="useremail" value={this.state.useremail} onChange={this.onhandleChange} required />
                         </div>
                         <div className="form-group">
                             <input type="password" className="form-control" placeholder="Password" name="userpassword" value={this.state.userpassword} onChange={this.onhandleChange} required="" />
+                        </div>
+                        <div className="pretty p-default p-curve p-has-hover remember-area">
+                            <input type="checkbox" onChange={(e) => this.rememeberAction(e.target.checked)}/>
+                            <label className="remember">Remember me</label>
                         </div>
                         <button type="button" className="btn btn-primary block full-width m-b" value="Login" onClick={this.onhandleSubmit} >Login</button>
 

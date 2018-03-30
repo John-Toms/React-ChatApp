@@ -219,8 +219,11 @@ label>input{
 .ibox-title h5 {
   margin: 0 0 0px !important;
 }
-.userstate{
+.unreadCount{
   margin-top: 10px;
+  padding: 3px 11px !important;
+  border-radius: 8px !important;
+  background-color: #e4ba3b !important;
 }
 .add-user-find{
   padding: 0px 20px 10px 0px;
@@ -240,14 +243,33 @@ label>input{
   position: absolute;
   font-size: 16px;
 }
-.userstateIcon{
+.user-online{
   width: 13px;
   height: 13px;
   background-color: #00ff39;
   border-radius: 50%;
   position: absolute;
-  margin-top: 29px;
-  margin-left: -14px;
+  margin-top: 24px;
+  margin-left: -22px;
+  color: white;
+  font-size: 9px !important;
+  border: solid 1px #e2dddd;
+  padding-left: 1px;
+  padding-top: 1px;
+}
+.user-offline{
+  width: 13px;
+  height: 13px;
+  background-color:white;
+  border-radius: 50%;
+  position: absolute;
+  margin-top: 24px;
+  margin-left: -22px;
+  color: white;
+  font-size: 9px !important;
+  border: solid 1px #00ff39;
+  padding-left: 1px;
+  padding-top: 1px;
 }
 .seletedUser{
   background-color: gainsboro;
@@ -258,4 +280,13 @@ label>input{
   /* width:100%; */
   max-height: 50px;
   outline: none;
+}
+.remember-area{
+  text-align: left;
+  margin-left: 20px;
+}
+.remember{
+  margin-left: 10px;
+  margin-bottom: 20px;
+  margin-top: 0px;
 }

@@ -9,9 +9,9 @@ import io from "socket.io-client";
 import axios from 'axios';
 import appConfig from './config/config.js'
 import moment  from 'moment';
-import AutosizeInput from 'react-input-autosize';
 import Textarea from 'react-textarea-autosize';
 import ReactDOM from 'react-dom';
+import Notifier from "react-desktop-notification"
 
 class Chat extends Component {
     constructor(props) {
@@ -27,7 +27,7 @@ class Chat extends Component {
             newemail: '',
             selUserIndex: 0,
             userstate: ''
-        };
+       };
 
         this.socket = io(appConfig.originUrl);
 
@@ -41,7 +41,13 @@ class Chat extends Component {
             if (data.sender === this.state.useremail) {
                 this.setState({ messages: [...this.state.messages, data] });
             } else if (data.receiver === this.state.useremail) {
-                // document.title = "* Slack(React)";    
+                document.title = "* Slack(React)";
+                let userIndex = this.state.users.map(function (e) { return e.useremail; }).indexOf(data.sender)
+                let count = (this.state.users[userIndex].unreadCount || 0)+1;
+                let statusCopy = Object.assign({}, this.state);
+                statusCopy.users[userIndex].unreadCount = count;
+                this.desktopAlarm("New message from "+this.state.users[userIndex].username,data.message);
+                this.setState(statusCopy);
                 this.setState({ messages: [...this.state.messages, data] });
             }
             console.log(this.state.messages);
@@ -63,24 +69,20 @@ class Chat extends Component {
             axios.post('/getUserContact', {
                 useremail: data,
             })
-                .then(function (response) {
-                    try {
-                        if (response.data.status === "success") {
-                            self.setState({ users: response.data.users });
-                            self.setState({ user: response.data.user });
-                            // this.getMessages(0);
-                            console.log("USERS=", response.data.users);
-                            console.log("USER=", response.data.user);
-                            console.log("USERNAME =", self.state.username)
-                            console.log("USEREMAIL =", self.state.useremail)
-                        } else {
-                            swal("Your contact is empty!");
-                        }
-                    } catch (error) {
-                        swal("Server Error");
-                        return;
+            .then(function (response) {
+                try {
+                    if (response.data.status === "success") {
+                        self.setState({ users: response.data.users });
+                        self.setState({ user: response.data.user });
+                        // this.getMessages(0);
+                    } else {
+                        swal("Your contact is empty!");
                     }
-                })
+                } catch (error) {
+                    swal("Server Error");
+                    return;
+                }
+            })
         }
 
         this.getMessages = (index) => {
@@ -120,6 +122,9 @@ class Chat extends Component {
                 }
             } else if (id === "sel") {
                 this.setState({ selUserIndex: e.target.alt });
+                let statusCopy = Object.assign({}, this.state);
+                statusCopy.users[e.target.alt].unreadCount = 0;
+                this.setState(statusCopy);
                 this.getMessages(e.target.alt);
 
             }
@@ -153,6 +158,21 @@ class Chat extends Component {
         }
 
         this.handleKeyPress = (e) => {
+            (function() {
+                if ("Notification" in window) {
+                  var permission = Notification.permission;
+              
+                  if (permission === "denied" || permission === "granted") {
+                    return;
+                  }
+              
+                  Notification
+                    .requestPermission()
+                    .then(function() {
+                      var notification = new Notification("Hello, world!");
+                    });
+                }
+              })();
             if (e.nativeEvent.keyCode === 13) {
                 if (e.nativeEvent.shiftKey) {
                 }else{
@@ -165,8 +185,15 @@ class Chat extends Component {
         });
         
         window.addEventListener('blur', function() {
-            // document.title = 'not focused';
         });
+
+        this.desktopAlarm = (title,content)=>{
+            // Notifier.start("Title","Hi how are you?","www.google.com","validated image url");
+            // Notifier.start("Title","Hello","www.google.com","validated image url","popwin1");
+            // Notifier.focus("Title","Here is contextdddd","www.google.com","validated image url");
+            // Notifier.focus("From","Hello");
+            Notifier.focus(title, content, "google.com", "icon_url")
+        }
     }
 
     scrollToBottom = () => {
@@ -175,7 +202,6 @@ class Chat extends Component {
     };
     componentDidUpdate(){
         this.scrollToBottom();
-
     }
     componentDidMount() {
         try {
@@ -188,7 +214,7 @@ class Chat extends Component {
             }
         } catch (error) {
             browserHistory.push('/');
-        }
+        }       
     }
     render() {
         return (
@@ -219,10 +245,6 @@ class Chat extends Component {
                                     <div className="chatroom">
 
                                         <div className="col-md-3 chat-users-area">
-                                            {/* <div className="chat-control">
-                                                        <h5>My Contact</h5>
-
-                                                    </div> */}
                                             <div className="ibox-title chat-control">
                                                 <h5>My Contact</h5>
                                                 <div className="ibox-tools">
@@ -247,8 +269,9 @@ class Chat extends Component {
                                                         let imgPath = "../img/team/a" + index + ".jpg";
                                                         return (
                                                             <div className={this.state.selUserIndex === index ? 'seletedUser chat-user' : 'chat-user'}>
-                                                                <span className="pull-right label label-primary userstate">Online</span>
+                                                                <span className={user.unreadCount>0?"pull-right label label-primary unreadCount":"hidden"}>{user.unreadCount}</span>
                                                                 <img className="chat-avatar" src={imgPath} alt={index} onClick={(e) => this.controlEvent("sel", e)} />
+                                                                <i className="user-online fa fa-check">&nbsp;</i>
                                                                 <div className="chat-user-name">
                                                                     <p>{user.username}</p>
                                                                 </div>
@@ -262,7 +285,8 @@ class Chat extends Component {
 
                                         <div className="col-md-9 ">
                                             <div>
-                                                <img className="img-circle clientavatar" src={"../img/team/a" + this.state.selUserIndex + ".jpg"} alt="images" /><i className="userstateIcon fa fa-circle-thin">&nbsp;</i>
+                                                <img className="img-circle clientavatar" src={"../img/team/a" + this.state.selUserIndex + ".jpg"} alt="images" />
+                                                {/* <i className="userstateIcon fa fa-circle-thin">&nbsp;</i> */}
                                                 <span className="clientname">{this.state.users.length >= 1 ? this.state.users[this.state.selUserIndex].username : "undefiend"}</span>
                                                 <img className="img-circle myavatar" src="../img/team/a1.jpg" alt="images" />
                                                 <span className="myname">{this.state.user ? this.state.user.username : "undefined"}</span>

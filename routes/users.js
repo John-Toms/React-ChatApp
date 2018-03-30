@@ -16,6 +16,8 @@ module.exports = (app, db, appConfig, publicPath) => {
 
   app.post('/login', (req, res) => {
     userModel.getUserlist("useremail", req.body.useremail).then(user => {
+      console.log(req.body)
+      console.log(user)
       if (user.length != 0) {
         if (user[0].userpassword === req.body.userpassword) {
           res.send({msg:'Successful',data:user[0]});

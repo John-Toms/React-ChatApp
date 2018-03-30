@@ -104,6 +104,15 @@ class Regestration extends Component {
                 this.alarm("Please Input UserEmail!");
                 return;
             }
+            if(! /@/.test(this.state.useremail)){
+                self.alarm("It is not correct email type!");
+                return;
+            }
+            
+            if(!this.state.userpassword){
+                this.alarm("Please input user password!");
+                return;
+            }
             if (this.state.userpassword !== this.state.confirmpassword) {
                 this.alarm('Do not match user password!');
                 return;
@@ -134,6 +143,11 @@ class Regestration extends Component {
         if(this.state.useremail===""){
             this.alarm("Input UserEmail!");
         }else{
+
+            if(! /@/.test(this.state.useremail)){
+                self.alarm("It is not correct email type!");
+                return;
+            }
             axios.post('/usercheck', {
                 useremail: self.state.useremail,
             })

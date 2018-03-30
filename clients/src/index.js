@@ -8,9 +8,8 @@ import Register from './pages/register';
 import Home from './pages/home';
 import Pswupdate from './pages/pswchange';
 import Chat from './pages/chat';
-import Test from './pages/test';
 
-import App from './App';
+// import App from './App';
 
 import registerServiceWorker from './registerServiceWorker';
 
@@ -23,7 +22,6 @@ export default(
             <Route path="/register" component={Register}/>
             <Route path="/pswupdate/:id" component={Pswupdate}/>
             <Route path="/chat/:id" component={Chat}/>
-            <Route path="/Test" component={Test}/>
         </Router>,
         document.getElementById('root')
     )
