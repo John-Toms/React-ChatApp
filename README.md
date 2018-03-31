@@ -39,5 +39,7 @@ I used react-route@3.2.0
    npm start.
    cd clients & npm start
 
-5.Screen
- https://github.com/John-Toms/Slack-react/blob/master/screen/login.png
+### Screens
+
+##Login
+![alt text](screen/login.png)
