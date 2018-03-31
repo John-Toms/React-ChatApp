@@ -1,13 +1,27 @@
 This is Chat application using ReactJS.
 I used react as front-end and express as server side.
 
+-  Backend
+
+    ◍  NodeJs
+    ◍  ExpressJS
+    ◍  MongoDB 
+    ◍  Passport-JWT  
+    ◍  Nodemailer 
+    
+-  Frontend
+
+    ◍  React
+    ◍  React-router
+    ◍  Sweet alert 
+    ◍  Webpack 
+
 How to run this application.
 
 1. Type like this on your Terminal.
 
-cd ReactChat
-npm install
-npm install mongodb & body-parse
+   cd ReactChat
+   npm install
 
 2. Install mongodb on your computer and run monodb server.
  - on Windows user this guide
@@ -20,8 +34,6 @@ npm install mongodb & body-parse
 cd clients & npm install
 
 I used react-route@3.2.0
-
-npm install react-route@3.2.0
 
 4. Run servers of backend adn frontend
    npm start.
