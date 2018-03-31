@@ -1,23 +1,21 @@
 This is Chat application using ReactJS.
 I used react as front-end and express as server side.
 
--  Backend
 
-    ◍  NodeJs.
-    ◍  ExpressJS.
-    ◍  MongoDB.
-    ◍  Passport-JWT.
-    ◍  Nodemailer.\
-    sfdfwef
-    fwefwefw
-    fwefwefwefssss
+###  Backend
+
+  - NodeJs.
+  -  ExpressJS.
+  -  MongoDB.
+  -  Passport-JWT.
+  -  Nodemailer.
     
--  Frontend
+###  Frontend
 
-    ◍  React.
-    ◍  React-router.
-    ◍  Sweet alert .
-    ◍  Webpack.
+   -  React.
+   -  React-router.
+   -  Sweet alert .
+   -  Webpack.
 
 How to run this application.
 
