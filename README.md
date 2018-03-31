@@ -3,18 +3,18 @@ I used react as front-end and express as server side.
 
 -  Backend
 
-    ◍  NodeJs
-    ◍  ExpressJS
-    ◍  MongoDB 
-    ◍  Passport-JWT  
-    ◍  Nodemailer 
+    ◍  NodeJs.
+    ◍  ExpressJS.
+    ◍  MongoDB.
+    ◍  Passport-JWT.
+    ◍  Nodemailer.
     
 -  Frontend
 
-    ◍  React
-    ◍  React-router
-    ◍  Sweet alert 
-    ◍  Webpack 
+    ◍  React.
+    ◍  React-router.
+    ◍  Sweet alert .
+    ◍  Webpack.
 
 How to run this application.
 
@@ -43,3 +43,9 @@ I used react-route@3.2.0
 
 ##Login
 ![alt text](screen/login.png)
+
+##Registration
+![alt text](screen/register.png)
+
+##Chat
+![alt text](screen/chat.png)
