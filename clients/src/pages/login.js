@@ -67,13 +67,13 @@ class Login extends Component {
                 }else if(response.data.msg==='WrongPassword'){
                     self.alarm('Invalid UserPassword!');
                 }else if(response.data.msg==="Successful"){
-                    if(self.state.rememberStatus){
+                    const userStr = btoa(JSON.stringify([{email:response.data.data.useremail,status:"success"}]));
+                    if(self.state.rememberStatus){alert(self.state.rememberStatus)
                         localStorage.setItem('slack', JSON.stringify(response.data.data));
-                        const userStr = btoa(JSON.stringify([{email:response.data.data.useremail,status:"success"}]));
                         browserHistory.push('/chat/'+userStr);
                     }else{
-                        localStorage.setItem('slack', JSON.stringify(response.data.data));
-                        const userStr = btoa(JSON.stringify([{email:response.data.data.useremail,status:"success"}]));
+                        // localStorage.setItem('slack', JSON.stringify(response.data.data));
+                        // const userStr = btoa(JSON.stringify([{email:response.data.data.useremail,status:"success"}]));
                         browserHistory.push('/chat/'+userStr);                        
                     }
                     // localStorage.setItem('slack', response.data.data)

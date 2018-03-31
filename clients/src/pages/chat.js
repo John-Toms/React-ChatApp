@@ -126,6 +126,9 @@ class Chat extends Component {
                 statusCopy.users[e.target.alt].unreadCount = 0;
                 this.setState(statusCopy);
                 this.getMessages(e.target.alt);
+            } else if (id === "logout") {
+                localStorage.removeItem("slack");
+                browserHistory.push('/');
 
             }
         }
@@ -188,10 +191,6 @@ class Chat extends Component {
         });
 
         this.desktopAlarm = (title,content)=>{
-            // Notifier.start("Title","Hi how are you?","www.google.com","validated image url");
-            // Notifier.start("Title","Hello","www.google.com","validated image url","popwin1");
-            // Notifier.focus("Title","Here is contextdddd","www.google.com","validated image url");
-            // Notifier.focus("From","Hello");
             Notifier.focus(title, content, "google.com", "icon_url")
         }
     }
@@ -225,6 +224,11 @@ class Chat extends Component {
                             <div className="ibox float-e-margins">
                                 <div className="ibox-content">
                                     <h2><strong>Chat room</strong></h2>
+                                    <li>
+                                        <a className="logout" onClick={(e) => this.controlEvent("logout", e)}>
+                                            <i class="fa fa-sign-out"></i> Log out
+                                        </a>
+                                    </li>
                                 </div>
                             </div>
                         </div>

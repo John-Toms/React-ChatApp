@@ -290,3 +290,6 @@ label>input{
   margin-bottom: 20px;
   margin-top: 0px;
 }
+.logout{
+  text-decoration: none;
+}
