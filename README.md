@@ -7,7 +7,10 @@ I used react as front-end and express as server side.
     ◍  ExpressJS.
     ◍  MongoDB.
     ◍  Passport-JWT.
-    ◍  Nodemailer.
+    ◍  Nodemailer.\
+    sfdfwef
+    fwefwefw
+    fwefwefwefssss
     
 -  Frontend
 
