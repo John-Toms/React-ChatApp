@@ -38,3 +38,6 @@ I used react-route@3.2.0
 4. Run servers of backend adn frontend
    npm start.
    cd clients & npm start
+
+5.Screen
+ https://github.com/John-Toms/Slack-react/blob/master/screen/login.png
