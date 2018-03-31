@@ -7,7 +7,6 @@ I used react as front-end and express as server side.
   - NodeJs.
   -  ExpressJS.
   -  MongoDB.
-  -  Passport-JWT.
   -  Nodemailer.
     
 ###  Frontend
