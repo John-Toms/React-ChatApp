@@ -27,6 +27,7 @@ class Chat extends Component {
             newemail: '',
             selUserIndex: 0,
             userstate: ''
+            // currentDate: ''
        };
 
         this.socket = io(appConfig.originUrl);
@@ -226,7 +227,7 @@ class Chat extends Component {
                                     <h2><strong>Chat room</strong></h2>
                                     <li>
                                         <a className="logout" onClick={(e) => this.controlEvent("logout", e)}>
-                                            <i class="fa fa-sign-out"></i> Log out
+                                            <i className="fa fa-sign-out"></i> Log out
                                         </a>
                                     </li>
                                 </div>
@@ -298,8 +299,13 @@ class Chat extends Component {
                                             </div>
                                             <div className="chat-discussion" ref={(el) => { this.messagesContainer = el; }}>
                                                 {/* <img  className="img-circle myavatar" src="../img/team/a1.jpg" alt="images" /><span>{this.state.user?this.state.user.username:"undefined"}</span> */}
-                                                {this.state.messages.map(message => {
+                                                {   
+                                                    this.state.messages.map(message => {
                                                     var alignstatus = "1";
+                                                    // var date = message.date;
+                                                    var date = moment.unix(message.date).format('dddd, MMMM Do, YYYY h:mm:ss A');
+                                                    var datetitle = moment.unix(message.date).format('dddd, MMMM Do');
+
                                                     if (message.sender === this.state.useremail) {
                                                         alignstatus = "1";
                                                     } else {
@@ -307,20 +313,38 @@ class Chat extends Component {
                                                         var indexSender = this.state.users.map(function (e) { return e.useremail; }).indexOf(message.sender);
                                                         var receiverName = this.state.users[indexSender].username;
                                                     }
+
                                                     // var t = new Date();
                                                     // t.setSeconds( message.date );
                                                     // var formatted = t.format("dd.mm.yyyy hh:MM:ss");
                                                     return (
-                                                        <div className="chat-message">
+                                                        <div>
+                                                        <div>
+                                                            <p className="DateArea">{datetitle}</p>
+                                                        </div>
+                                                        {/* <div className="chat-message">
+                                                            
                                                             <img className="message-avatar" src="../img/team/a6.jpg" alt="" />
                                                             <div className={alignstatus === "1" ? "message message-right" : "message message-left"}>
                                                                 <a className="message-author" href="">{alignstatus === "1" ? this.state.user.username : receiverName}</a>
-                                                                <span className={alignstatus === "1" ? "message-date message-date-left" : "message-date message-date-right"}>  {message.date} </span>
+                                                                <span className={alignstatus === "1" ? "message-date message-date-left" : "message-date message-date-right"}>  {date} </span>
+                                                                <p className="message-content">
+                                                                    {message.message}
+                                                                </p>
+                                                            </div>
+                                                        </div> */}
+                                                         <div className="chat-message">
+                                                            
+                                                            <img className="message-avatar" src="../img/team/a6.jpg" alt="" />
+                                                            <div className="message">
+                                                                <a className="message-author" href="">{alignstatus === "1" ? this.state.user.username : receiverName}</a>
+                                                                <span className={alignstatus === "1" ? "message-date message-date-left" : "message-date message-date-right"}>  {date} </span>
                                                                 <p className="message-content">
                                                                     {message.message}
                                                                 </p>
                                                             </div>
                                                         </div>
+                                                    </div>
                                                     )
                                                 })}
                                             </div>
