@@ -91,7 +91,7 @@ class Chat extends Component {
                 .then(function (response) {
                     try {
                         if (response.data.status === "success") {
-                            document.title = "* Slack(React)";
+                            // document.title = "* Slack(React)";
                             self.setState({ messages: response.data.data });
                         } else {
                             swal("No messages!");
