@@ -27,7 +27,6 @@ class Chat extends Component {
             newemail: '',
             selUserIndex: 0,
             userstate: ''
-            // currentDate: ''
        };
 
         this.socket = io(appConfig.originUrl);
@@ -37,8 +36,6 @@ class Chat extends Component {
         });
 
         const addMessage = data => {
-            console.log("RECEIVE MESSAGE = ", data);
-            console.log("MY EMAIL=", this.state.useremail)
             if (data.sender === this.state.useremail) {
                 this.setState({ messages: [...this.state.messages, data] });
             } else if (data.receiver === this.state.useremail) {
@@ -51,7 +48,6 @@ class Chat extends Component {
                 this.setState(statusCopy);
                 this.setState({ messages: [...this.state.messages, data] });
             }
-            console.log(this.state.messages);
         };
 
         this.sendMessage = () => {
@@ -66,7 +62,7 @@ class Chat extends Component {
         }
 
         this.getUser = data => {
-            var self = this;
+            let self = this;
             axios.post('/getUserContact', {
                 useremail: data,
             })
@@ -87,7 +83,7 @@ class Chat extends Component {
         }
 
         this.getMessages = (index) => {
-            var self = this;
+            let self = this;
             axios.post('/getMessages', {
                 sender: this.state.useremail,
                 receiver: this.state.users[index].useremail
@@ -97,7 +93,6 @@ class Chat extends Component {
                         if (response.data.status === "success") {
                             document.title = "* Slack(React)";
                             self.setState({ messages: response.data.data });
-                            console.log("messages data=", response.data.data);
                         } else {
                             swal("No messages!");
                         }
@@ -122,10 +117,10 @@ class Chat extends Component {
                     swal("Please input new Email to add on your contact!")
                 }
             } else if (id === "sel") {
-                this.setState({ selUserIndex: e.target.alt });
                 let statusCopy = Object.assign({}, this.state);
                 statusCopy.users[e.target.alt].unreadCount = 0;
                 this.setState(statusCopy);
+                this.setState({ selUserIndex: 1 });
                 this.getMessages(e.target.alt);
             } else if (id === "logout") {
                 localStorage.removeItem("slack");
@@ -135,7 +130,7 @@ class Chat extends Component {
         }
 
         this.addNewContact = data => {
-            var self = this;
+            let self = this;
             axios.post('/addNewContact', {
                 useremail: this.state.useremail,
                 newemail: this.state.newemail
@@ -162,21 +157,21 @@ class Chat extends Component {
         }
 
         this.handleKeyPress = (e) => {
-            (function() {
-                if ("Notification" in window) {
-                  var permission = Notification.permission;
+            // (function() {
+            //     if ("Notification" in window) {
+            //       let permission = Notification.permission;
               
-                  if (permission === "denied" || permission === "granted") {
-                    return;
-                  }
+            //       if (permission === "denied" || permission === "granted") {
+            //         return;
+            //       }
               
-                  Notification
-                    .requestPermission()
-                    .then(function() {
-                      var notification = new Notification("Hello, world!");
-                    });
-                }
-              })();
+            //       Notification
+            //         .requestPermission()
+            //         .then(function() {
+            //           let notification = new Notification("Hello, world!");
+            //         });
+            //     }
+            //   })();
             if (e.nativeEvent.keyCode === 13) {
                 if (e.nativeEvent.shiftKey) {
                 }else{
@@ -193,6 +188,19 @@ class Chat extends Component {
 
         this.desktopAlarm = (title,content)=>{
             Notifier.focus(title, content, "google.com", "icon_url")
+        }
+        this.getDateState = (index) =>{
+            let lastDate="00:00:0000";
+            let currentDate = moment.unix(this.state.messages[index].date).format('dddd, MMMM Do');
+            if(index>0){
+              lastDate  = moment.unix(this.state.messages[index-1].date).format('dddd, MMMM Do');
+            }
+            if(lastDate === currentDate){
+                return false;
+            }else{
+                return true;
+            }
+           
         }
     }
 
@@ -223,13 +231,15 @@ class Chat extends Component {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="ibox float-e-margins">
-                                <div className="ibox-content">
+                                <div className="ibox-content room-title">
                                     <h2><strong>Chat room</strong></h2>
-                                    <li>
-                                        <a className="logout" onClick={(e) => this.controlEvent("logout", e)}>
-                                            <i className="fa fa-sign-out"></i> Log out
-                                        </a>
-                                    </li>
+                                    <ul className="logout">
+                                        <li>
+                                            <a className="logout" onClick={(e) => this.controlEvent("logout", e)}>
+                                                <i className="fa fa-sign-out"></i> Log out
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -291,7 +301,6 @@ class Chat extends Component {
                                         <div className="col-md-9 ">
                                             <div>
                                                 <img className="img-circle clientavatar" src={"../img/team/a" + this.state.selUserIndex + ".jpg"} alt="images" />
-                                                {/* <i className="userstateIcon fa fa-circle-thin">&nbsp;</i> */}
                                                 <span className="clientname">{this.state.users.length >= 1 ? this.state.users[this.state.selUserIndex].username : "undefiend"}</span>
                                                 <img className="img-circle myavatar" src="../img/team/a1.jpg" alt="images" />
                                                 <span className="myname">{this.state.user ? this.state.user.username : "undefined"}</span>
@@ -300,50 +309,39 @@ class Chat extends Component {
                                             <div className="chat-discussion" ref={(el) => { this.messagesContainer = el; }}>
                                                 {/* <img  className="img-circle myavatar" src="../img/team/a1.jpg" alt="images" /><span>{this.state.user?this.state.user.username:"undefined"}</span> */}
                                                 {   
-                                                    this.state.messages.map(message => {
-                                                    var alignstatus = "1";
-                                                    // var date = message.date;
-                                                    var date = moment.unix(message.date).format('dddd, MMMM Do, YYYY h:mm:ss A');
-                                                    var datetitle = moment.unix(message.date).format('dddd, MMMM Do');
+                                                    this.state.messages.map((message, index) => {
+                                                    let alignstatus = "1";
+                                                    let dateShow_flag = true;
+                                                    let date = moment.unix(message.date).format('dddd, MMMM Do, YYYY h:mm:ss A');
+                                                    let currentDate = moment.unix(message.date).format('dddd, MMMM Do, YYYY');
+                                                  
+                                                    dateShow_flag = this.getDateState(index);
 
                                                     if (message.sender === this.state.useremail) {
                                                         alignstatus = "1";
                                                     } else {
                                                         alignstatus = "0";
-                                                        var indexSender = this.state.users.map(function (e) { return e.useremail; }).indexOf(message.sender);
+                                                        let indexSender = this.state.users.map(function (e) { return e.useremail; }).indexOf(message.sender);
                                                         var receiverName = this.state.users[indexSender].username;
                                                     }
 
-                                                    // var t = new Date();
-                                                    // t.setSeconds( message.date );
-                                                    // var formatted = t.format("dd.mm.yyyy hh:MM:ss");
                                                     return (
                                                         <div>
-                                                        <div>
-                                                            <p className="DateArea">{datetitle}</p>
-                                                        </div>
-                                                        {/* <div className="chat-message">
-                                                            
-                                                            <img className="message-avatar" src="../img/team/a6.jpg" alt="" />
-                                                            <div className={alignstatus === "1" ? "message message-right" : "message message-left"}>
-                                                                <a className="message-author" href="">{alignstatus === "1" ? this.state.user.username : receiverName}</a>
-                                                                <span className={alignstatus === "1" ? "message-date message-date-left" : "message-date message-date-right"}>  {date} </span>
-                                                                <p className="message-content">
-                                                                    {message.message}
-                                                                </p>
+                                                            <div className={dateShow_flag===true?"date-area":"hidden"}>
+                                                                <span className="leftline">&nbsp;</span>
+                                                                <h3 className="date-title">{currentDate}</h3>
+                                                                <span className="rightline">&nbsp;</span>
                                                             </div>
-                                                        </div> */}
-                                                         <div className="chat-message">
-                                                            
-                                                            <img className="message-avatar" src="../img/team/a6.jpg" alt="" />
-                                                            <div className="message">
-                                                                <a className="message-author" href="">{alignstatus === "1" ? this.state.user.username : receiverName}</a>
-                                                                <span className={alignstatus === "1" ? "message-date message-date-left" : "message-date message-date-right"}>  {date} </span>
-                                                                <p className="message-content">
-                                                                    {message.message}
-                                                                </p>
+                                                            <div className="chat-message">
+                                                                <img className="message-avatar" src="../img/team/a6.jpg" alt="" />
+                                                                <div className={alignstatus === "1" ? "message message-right" : "message message-left"}>
+                                                                    <a className="message-author" href="">{alignstatus === "1" ? this.state.user.username : receiverName}</a>
+                                                                    <span className={alignstatus === "1" ? "message-date message-date-left" : "message-date message-date-right"}>  {date} </span>
+                                                                    <p className="message-content">
+                                                                        {message.message}
+                                                                    </p>
+                                                                </div>
                                                             </div>
-                                                        </div>
                                                     </div>
                                                     )
                                                 })}
@@ -356,11 +354,6 @@ class Chat extends Component {
                                                             <Textarea className="message-text form-control" value={this.state.message} onChange={ev => this.setState({ message: ev.target.value })} onKeyUp={this.handleKeyPress.bind(this)} >
                                                             </Textarea>
 
-                                                            {/* <textarea className="form-control message-input" name="message" value={this.state.message} placeholder="Enter message text" onChange={ev => this.setState({message: ev.target.value})}></textarea> */}
-                                                            {/* <input type="text" placeholder="Username" value={this.state.username} onChange={ev => this.setState({username: ev.target.value})} className="form-control"/> */}
-                                                            <br />
-                                                            {/* <input type="text" placeholder="Message" className="form-control message-text" value={this.state.message} onChange={ev => this.setState({ message: ev.target.value })} onKeyUp={this.handleKeyPress.bind(this)} /> */}
-                                                            {/* <AutosizeInput name="form-field-name" value={this.state.message}  style={{ fontSize: 36 }} onChange={ev => this.setState({ message: ev.target.value })} onKeyUp={this.handleKeyPress.bind(this)}  /> */}
                                                             <button onClick={this.sendMessage} className="btn btn-primary form-control send-btn">Send</button>
                                                             <br />
                                                         </div>

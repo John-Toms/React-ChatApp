@@ -4216,9 +4216,11 @@ dd.project-people {
 }
 .chat-message {
   padding: 10px 20px;
+  display: inline-block;
+  width: 100%;
 }
 .message-avatar {
-  display: none;
+  /* display: none; */
   height: 48px;
   width: 48px;
   border: 1px solid #e7eaec;
@@ -4252,7 +4254,7 @@ dd.project-people {
   text-align: left;
   /* margin-right: 55px; */
   width: 80%;
-  margin-bottom: 18px;
+  /* margin-bottom: 18px; */
   float: left;
   /* margin-left: 55px; */
 }
@@ -4260,7 +4262,7 @@ dd.project-people {
   text-align: right;
   /* margin-right: 55px; */
   width: 80%;
-  margin-bottom: 18px;
+  /* margin-bottom: 18px; */
   float: right;
   /* margin-right: 55px; */
 }

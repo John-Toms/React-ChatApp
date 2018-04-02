@@ -290,17 +290,52 @@ label>input{
   margin-bottom: 20px;
   margin-top: 0px;
 }
-.logout{
-  text-decoration: none;
-}
-.DateArea{
+.date-title{
   text-align: center;
   font-size: 19px;
   font-weight: 300;
+  display: inline-flex;
 }
 .leftline{
-
+  width: 26%;
+  display: inline-flex;
+  border-bottom: solid 1px gray;
+  float: left;
 }
 .rightline{
-  
+  width: 26%;
+  display: inline-flex;
+  border-bottom: solid 1px gray;
+  float: right;
 }
+.date-area{
+  text-align: center;
+}
+.room-title{
+  display: inline-block;
+  width: 100%;
+}
+.room-title>h2{
+  float: left;
+}
+
+.logout{
+  text-decoration: none;
+  list-style: none;
+  float: right;
+  margin: 0px auto;
+  font-size: 18px;
+  margin-top: 6px;
+}
+.logout>li{
+  list-style:none;
+}
+.logout>li>a:hover{
+  list-style:none;
+  text-decoration: none;
+  color: #2a6496;
+}
+.logout>li>a{
+  color: #7f8184;
+}
+
