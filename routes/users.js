@@ -8,11 +8,11 @@ module.exports = (app, db, appConfig, publicPath) => {
 
   var userModel = new UserModel(db, ObjectId);
 
-  app.post('/getUser', (req, res) => {
-    return userModel.getUser().then(user => {
-      res.send(user);
-    });
-  })
+  // app.post('/getUser', (req, res) => {
+  //   return userModel.getUser().then(user => {
+  //     res.send(user);
+  //   });
+  // })
 
   app.post('/login', (req, res) => {
     userModel.getUserlist("useremail", req.body.useremail).then(user => {
