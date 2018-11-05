@@ -13,6 +13,7 @@ module.exports = (app,db,server) =>{
 
     io.on('connection', (socket) => {
         console.log("socket=",socket.id);
+        io.emit('sendinfo',socket.id)
         allClients.push(socket.id);
 
         socket.on('SEND_MESSAGE', function(data){ console.log(data)
