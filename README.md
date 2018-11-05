@@ -1,7 +1,6 @@
 This is Chat application using ReactJS.
 I used react as front-end and express as server side.
 
-
 ###  Backend
 
   - NodeJs.
@@ -13,9 +12,10 @@ I used react as front-end and express as server side.
 
    -  React.
    -  React-router.
+   -  Reatstrap 
    -  Sweet alert .
    -  Webpack.
-
+  
 How to run this application.
 
 1. Type like this on your Terminal.
