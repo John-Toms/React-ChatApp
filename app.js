@@ -37,6 +37,7 @@ const start = async () => {
     } catch (e) {
         console.log(e)
     }
+    console.log('test');
 };
 start();
 
