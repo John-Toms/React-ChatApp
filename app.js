@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongodb = require('mongodb');
 var bodyParser = require('body-parser');
-// var socket = require('socket.io');
 const http = require("http");
 
 const appConfig = require('./config/config');
