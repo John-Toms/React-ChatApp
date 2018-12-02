@@ -16,28 +16,28 @@ const port = appConfig.port;
 var app = express();
 
 const start = async () => {
-  try {
-    
-      const db = await mongodb.MongoClient.connect(appConfig.mongoUrl);
+    try {
 
-      app.use(logger('dev'));
-      app.use(bodyParser.json());
-      app.use(bodyParser.urlencoded({ extended: false }));
-      app.use(cookieParser());
-      app.use(express.static(path.join(__dirname, 'public')));
+        const db = await mongodb.MongoClient.connect(appConfig.mongoUrl);
 
-      const server = http.createServer(app);
+        app.use(logger('dev'));
+        app.use(bodyParser.json());
+        app.use(bodyParser.urlencoded({ extended: false }));
+        app.use(cookieParser());
+        app.use(express.static(path.join(__dirname, 'public')));
 
-      server.listen(port, () => console.log(`Listening on port ${port}`));
+        const server = http.createServer(app);
 
-      require("./routes/users")(app,db,appConfig,__dirname);
-      require("./routes/chat")(app,db,server);
+        server.listen(port, () => console.log(`Listening on port ${port}`));
 
-      module.exports = app;
+        require("./routes/users")(app, db, appConfig, __dirname);
+        require("./routes/chat")(app, db, server);
 
-  } catch (e) {
-      console.log(e)
-  }
+        module.exports = app;
+
+    } catch (e) {
+        console.log(e)
+    }
 };
 start();
 
