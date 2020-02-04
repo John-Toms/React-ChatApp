@@ -1,4 +1,4 @@
-### Consept
+### 1. Consept
 
 This is Chat application using ReactJS.
 I used react as front-end and express as server side.
@@ -18,9 +18,9 @@ I used react as front-end and express as server side.
 -  Sweet alert .
 -  Webpack.
   
-### How to run.
+### 2. How to run.
 
-##### 1. Install npm packages.
+##### 1) Install npm packages.
 
 - Backend
 ````
@@ -33,7 +33,7 @@ I used react as front-end and express as server side.
   $ npm install
 ````
 
-##### 2. Install mongodb and run monodb server.
+##### 2) Install mongodb and run monodb server.
 ````
    on Windows 
    https://www.guru99.com/installation-configuration-mongodb.html#1
@@ -42,19 +42,19 @@ I used react as front-end and express as server side.
    https://treehouse.github.io/installation-guides/mac/mongo-mac.html
 ````
 
-##### 3.Run client and server
+##### 3) Run client and server
    ````
    npm start.
    cd clients & npm start
    ````
 
-### Screens
+### 3. Screens
 
-#####Login
+##### Login
 ![alt text](screen/login.png)
 
-#####Registration
+##### Registration
 ![alt text](screen/register.png)
 
-#####Chat
+##### Chat
 ![alt text](screen/chat.png)
