@@ -15,7 +15,7 @@
     "moment": "^2.21.0",
     "mongodb": "^2.2.33",
     "morgan": "~1.9.1",
-    "nodemailer": "^4.6.3",
+    "nodemailer": "^6.4.16",
     "nodemailer-smtp-transport": "^2.7.4",
     "pug": "2.0.0-beta11",
     "serve-favicon": "~2.4.5",
